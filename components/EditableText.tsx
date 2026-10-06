@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import LinkifiedText from './LinkifiedText'
 
 type Props = {
   value: string
@@ -36,7 +37,7 @@ export default function EditableText({
   }, [editing])
 
   if (!editMode) {
-    return <Tag className={className}>{value || placeholder}</Tag>
+    return <Tag className={className}>{value ? <LinkifiedText text={value} /> : placeholder}</Tag>
   }
 
   if (!editing) {

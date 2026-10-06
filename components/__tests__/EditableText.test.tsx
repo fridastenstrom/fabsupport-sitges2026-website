@@ -43,3 +43,15 @@ describe('EditableText', () => {
     expect(screen.getByText('Lägg till text…')).toBeInTheDocument()
   })
 })
+
+describe('EditableText links', () => {
+  it('renders URLs as links when not in edit mode', () => {
+    render(<EditableText value="Karta: https://maps.app.goo.gl/abc" editMode={false} onSave={vi.fn()} />)
+    expect(screen.getByRole('link')).toHaveAttribute('href', 'https://maps.app.goo.gl/abc')
+  })
+
+  it('keeps URLs as plain text in edit mode so a click starts editing', () => {
+    render(<EditableText value="Karta: https://maps.app.goo.gl/abc" editMode={true} onSave={vi.fn()} />)
+    expect(screen.queryByRole('link')).not.toBeInTheDocument()
+  })
+})
